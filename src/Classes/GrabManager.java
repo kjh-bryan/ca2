@@ -147,6 +147,23 @@ public class GrabManager {
                 listToReturn.add(m.toString());
             }
             
+            executorService.shutdown();
+            while(true){
+                try{
+                    System.out.println("Waiting for the service to terminate..");
+                    if(executorService.awaitTermination(5, TimeUnit.SECONDS))
+                    {
+                        break;
+                    }
+                }
+                catch(InterruptedException ex)
+                {
+                    
+                }
+            }
+            System.out.println("Done shut down");
             return listToReturn;
-        }
+            
+            
+    }
 }

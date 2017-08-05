@@ -23,7 +23,7 @@ import org.jsoup.select.Elements;
  * @author kangj
  */
 public class GrabPage implements Callable<GrabPage>{
-    static final int TIMEOUT = 5000;
+    static final int TIMEOUT = 1000;
     private URL url;
     private int depth;
     private Set<URL> urlList = new HashSet<>();

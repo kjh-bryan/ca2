@@ -9,8 +9,10 @@ import Classes.TestGrabManager;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXSpinner;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -98,6 +100,21 @@ public class Start extends Application{
          });
          content.setActions(button);
          dialog.show();
+     }
+     
+     public static void showSpinner(JFXSpinner spinner)
+     {
+            System.out.println("Start showSpinner getOpacity : " + spinner.getOpacity());
+            if(spinner.getOpacity() == 100)
+            {
+                spinner.setOpacity(0);
+                System.out.println("Set opacity to 0 : " + spinner.getOpacity());
+            }
+            else if(spinner.getOpacity() == 0)
+            {
+                spinner.setOpacity(100);
+                System.out.println("Set opacity to 100 : " + spinner.getOpacity());
+            }
      }
      
      

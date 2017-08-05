@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +28,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -41,7 +44,7 @@ import main.Start;
  */
 public class WebCrawlerInterfaceController implements Initializable {
 
-     @FXML
+    @FXML
     private JFXComboBox<Integer> noOfThreadComboBox;
     @FXML
     private JFXListView<String> queryListView;
@@ -55,6 +58,11 @@ public class WebCrawlerInterfaceController implements Initializable {
     @FXML
     private JFXTextArea htmltextArea;
 
+    private boolean show;
+
+    @FXML
+    private JFXSpinner spinner;
+
     @FXML
     private JFXButton searchBtn;
 
@@ -66,9 +74,11 @@ public class WebCrawlerInterfaceController implements Initializable {
 
     @FXML
     private JFXTextField queryTxt;
-    
-      @FXML
+
+    @FXML
     private JFXButton statisticBtn;
+
+    public ObservableList<String> data;
 
     @FXML
     void handleHtmlAction(ActionEvent event) {
@@ -84,56 +94,54 @@ public class WebCrawlerInterfaceController implements Initializable {
     void handleStatsBtn(ActionEvent event) {
 
     }
-    
+
     @FXML
     void handleExitAction(ActionEvent event) {
         Stage window = (Stage) exitBtn.getScene().getWindow();
-        window.close();
+        Platform.exit();
     }
-
     @FXML
     void handleSearchAction(ActionEvent event) {
-        if(queryTxt.getText()!= "")
-        {
-            ObservableList<String> data = getSearchQueryData();
-            queryListView.setItems(data);
+
+        Start.showSpinner(spinner);
+        
+        if (!queryTxt.getText().isEmpty()) {
+            data = getSearchQueryData();
+            queryListView.setItems(data); 
+            Start.showSpinner(spinner);
+        } else {
+
+            Start.loadDialog(event, stackPane, "Error", "Please enter a value to the search phrase");
+            Start.showSpinner(spinner);
         }
-        else
-        {
-            Start.loadDialog(event,stackPane,"Error","Please enter a value to the search phrase");
-        }
+
     }
-    
-    ObservableList<String> getSearchQueryData(){
+
+    ObservableList<String> getSearchQueryData() {
         String query = queryTxt.getText().replace(" ", "+");
         TestGrabManager t = new TestGrabManager();
         ObservableList<String> resultGoogle = FXCollections.observableArrayList();
         ObservableList<String> resultBing = FXCollections.observableArrayList();
-        try
-        {
+        try {
             resultGoogle = t.happy(noOfThreadComboBox.getValue(), query, 1);
             resultBing = t.happy(noOfThreadComboBox.getValue(), query, 2);
-        }
-        catch(InterruptedException ex){
-            
-        }
-        catch(IOException e)
-        {
-            
+        } catch (InterruptedException ex) {
+
+        } catch (IOException e) {
+
         }
         ObservableList<String> finalResult = FXCollections.observableArrayList();
-        
-        for(String g : resultGoogle)
-        {
+
+        for (String g : resultGoogle) {
             finalResult.add(g);
         }
-        for(String b : resultBing)
-        {
+        for (String b : resultBing) {
             finalResult.add(b);
         }
-        
+
         return finalResult;
     }
+
     /**
      * Initializes the controller class.
      */
@@ -150,9 +158,9 @@ public class WebCrawlerInterfaceController implements Initializable {
         });
 
     }
-    
-    void initComboBox(){
-        ObservableList<Integer> noOfThreadList = FXCollections.observableArrayList(1,2,4,8);
+
+    void initComboBox() {
+        ObservableList<Integer> noOfThreadList = FXCollections.observableArrayList(1, 2, 4, 8);
         noOfThreadComboBox.setValue(1);
         noOfThreadComboBox.setItems(noOfThreadList);
     }
