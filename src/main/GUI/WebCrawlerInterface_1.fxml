@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <StackPane fx:id="stackPane" layoutY="5.0" prefHeight="790.0" prefWidth="1000.0" />
+      <JFXTextField fx:id="queryTxt" layoutX="354.0" layoutY="65.0" prefHeight="29.0" prefWidth="463.0" />
+      <Label layoutX="116.0" layoutY="66.0" text="Enter query to search: ">
+         <font>
+            <Font name="Lato Regular" size="22.0" />
+         </font>
+      </Label>
+      <JFXListView fx:id="queryListView" layoutX="116.0" layoutY="141.0" prefHeight="238.0" prefWidth="809.0" />
+      <JFXButton fx:id="searchBtn" layoutX="828.0" layoutY="35.0" onAction="#handleSearchAction" prefHeight="60.0" prefWidth="100.0" ripplerFill="#e0e6ff" style="-fx-background-color: #5d7cff;" text="Search" textFill="WHITE">
+         <font>
+            <Font name="Lato Regular" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="exitBtn" layoutX="963.0" layoutY="7.0" onAction="#handleExitAction" text="X">
+         <font>
+            <Font name="Lato Regular" size="15.0" />
+         </font>
+      </JFXButton>
+      <Pane prefHeight="800.0" prefWidth="81.0" style="-fx-background-color: #EDEDED;">
+         <children>
+            <JFXButton layoutY="80.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #5d7cff;" text="HTML" textFill="#5d7cff">
+               <font>
+                  <Font name="Lato Regular" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #5d7cff;" text="Crawls" textFill="WHITE">
+               <font>
+                  <Font name="Lato Regular" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutY="160.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: ffffff; -fx-border-color: #5d7cff;" text="Web Content" textAlignment="CENTER" textFill="#5d7cff" wrapText="true">
+               <font>
+                  <Font name="Lato Regular" size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
